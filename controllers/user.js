@@ -3,13 +3,18 @@ const bcryptjs = require('bcryptjs');
 
 const User = require('../models/user');
 
-const userGet = (req, res = response)=>{
-    const { nombre, apiKey } = req.query;
-    res.json({
-        ok: true,
-        message: 'get API - controlador',
-        nombre,
-    })  ;
+const userGet = async (req, res = response)=>{
+    const { limit = 5, since = 0 } = req.query;
+
+    const [ total, users ] = await Promise.all([
+        User.countDocuments({ state: true }),
+        User.find({ state: true })
+        .skip(Number(since))
+        .limit(Number(limit))])
+
+    res.json({ total,
+                users
+            });
    }
 
 const userPost = async (req = request, res)=>{
@@ -47,17 +52,15 @@ const userPut = async (req, res)=>{
 
     const user = await User.findByIdAndUpdate( id,resto );
 
-    res.json({
-        ok: true,
-        message: 'put API - controlador',
-        user
-    })  ;
+    res.json(user)  ;
    }
 
-const userDelete =  (req, res)=>{
+const userDelete = async (req, res)=>{
+    const { id } = req.params;
+    const user = await User.findByIdAndUpdate(id,{ state: false });
     res.json({
-        ok: true,
-        message: 'delete API'
+        message: `User ID: ${ id } has been delete`,
+        user
     })  ;
    }
 

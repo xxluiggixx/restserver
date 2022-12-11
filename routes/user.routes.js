@@ -25,10 +25,15 @@ router.post('/',
 router.put('/:id',[
         check('id',' Invalid ID').isMongoId(),
         check('id').custom( userExistById ),
+        body('role').custom( isRoleValidate ),
         validateCamp
         ], userPut);
 
-router.delete('/:id', userDelete);
+router.delete('/:id',[
+        check('id',' Invalid ID').isMongoId(),
+        check('id').custom( userExistById ),
+        validateCamp
+        ] ,userDelete);
 
 router.patch('/', userPatch);
 
