@@ -8,10 +8,11 @@ class Server {
         this.app = express();
         this.PORT = process.env.PORT || 8080;
         this.userPath = '/api/user';
+        this.authPath = '/api/auth';
 
         //Connect DB
         this.connectDB();
-        
+
         //Middlewares
         this.middlewares();
 
@@ -24,7 +25,7 @@ class Server {
     }
 
     middlewares() {
-        
+
         //CORS
         this.app.use( cors() );
 
@@ -38,6 +39,7 @@ class Server {
     routes(){
 
         this.app.use(this.userPath, require('../routes/user.routes'));
+        this.app.use(this.authPath, require('../routes/auth.routes'));
     }
 
     listen(){
