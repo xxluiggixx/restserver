@@ -24,8 +24,8 @@ const userPost = async (req = request, res)=>{
     const user = new User( { name, email, password, role } );
 
     //verify if email exist!
-    
-    
+
+
     //Encrypt password
     const salt = bcryptjs.genSaltSync();
     user.password = bcryptjs.hashSync(password, salt);
@@ -57,10 +57,13 @@ const userPut = async (req, res)=>{
 
 const userDelete = async (req, res)=>{
     const { id } = req.params;
+
+
     const user = await User.findByIdAndUpdate(id,{ state: false });
+
     res.json({
         message: `User ID: ${ id } has been delete`,
-        user
+        user,
     })  ;
    }
 
@@ -75,7 +78,7 @@ const userPatch =  (req, res)=>{
 module.exports = {
     userGet,
     userPost,
-    userPut, 
+    userPut,
     userDelete,
     userPatch
 }
