@@ -4,7 +4,7 @@ const { body, check } =  require('express-validator');
 /* const { validateCamp } = require('../middlewares/validate-camp');
 const { validateJWT } = require('../middlewares/validate-jwt');
 const { isAdminRole, haveRole } = require('../middlewares/validate-role'); */
-const { validateJWT, validateCamp, haveRole} = require('../middlewares')
+const { validateJWT, validateCamp, haveRole } = require('../middlewares')
 
 const { userGet,
         userPost,
