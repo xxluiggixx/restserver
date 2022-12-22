@@ -29,10 +29,11 @@ const haveRole = ( ...roles ) => {
         }
 
         const { role }= req.user;
+        console.log(role)
 
         if( !roles.includes( role )) {
             return res.status(401).json({
-                msg:  `Permission denided - User must have one of this roles: ${roles}`
+                msg:  `Permission denided - User must be one of this roles: ${roles}`
             })
         }
         next();

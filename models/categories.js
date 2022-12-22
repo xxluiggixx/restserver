@@ -17,6 +17,10 @@ const categorieSchema = Schema({
         required: true
     }
 })
+//Modify method toJSON
+categorieSchema.methods.toJSON = function() {
+  const { state, __v,  ...categorie} = this.toObject();
+  return categorie;
+}
 
-
-module.exports = model('Categorie', categorieSchema); 
+module.exports = model('Categorie', categorieSchema);

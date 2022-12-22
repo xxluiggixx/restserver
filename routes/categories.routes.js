@@ -10,7 +10,7 @@ const {
                     } = require('../controllers/categories');
 const { categorieExistById } = require('../helpers/db-validators');
 
-const { validateJWT, validateCamp, haveRole } = require('../middlewares')
+const { validateJWT, validateCamp, haveRole, isAdminRole } = require('../middlewares')
 
 
 
@@ -18,11 +18,10 @@ const router = Router();
 
 
 // Get all categories - paginado - total - populate - public
-router.get('/',[validateCamp], getCategories);
+router.get('/', getCategories);
 
 // Get one categorie - populate - public
 router.get('/:id',[
-    check('id').isMongoId(),
     check('id').custom( categorieExistById ),
     validateCamp], getOneCategories);
 
@@ -35,16 +34,16 @@ router.post('/', [
 // Update categorie - private with valid token
 router.put('/:id', [
     validateJWT,
-    check('id').isMongoId(),
+    body('name','Name is require').not().isEmpty(),
     check('id').custom( categorieExistById ),
     validateCamp], updateCategories);
 
 // Delete categorie - private with Admin role
 router.delete('/:id', [
     validateJWT,
-    check('id').isMongoId(),
+    isAdminRole,
     check('id').custom( categorieExistById ),
-    haveRole(['ADMIN_ROLE']),
+    //haveRole(['ADMIN_ROLE']),
     validateCamp], deleteCategories);
 
 
