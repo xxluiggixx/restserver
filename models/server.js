@@ -9,11 +9,12 @@ class Server {
         this.PORT = process.env.PORT || 8080;
 
         this.paths = {
-          authPath: '/api/auth',
-          categoriesPath: '/api/categories',
-          productPath: '/api/products',
-            userPath: '/api/user',
-            searchPath: '/api/search'
+          auth:       '/api/auth',
+          categories: '/api/categories',
+          product:    '/api/products',
+          user:       '/api/user',
+          search:     '/api/search',
+          uploads:    '/api/uploads'
         }
 
         //Connect DB
@@ -44,11 +45,12 @@ class Server {
 
     routes(){
 
-        this.app.use(this.paths.userPath, require('../routes/user.routes'));
-        this.app.use(this.paths.authPath, require('../routes/auth.routes'));
-        this.app.use(this.paths.categoriesPath, require('../routes/categories.routes'));
-        this.app.use(this.paths.productPath, require('../routes/product.routes'));
-        this.app.use(this.paths.searchPath, require('../routes/search.routes'));
+        this.app.use(this.paths.user, require('../routes/user.routes'));
+        this.app.use(this.paths.auth, require('../routes/auth.routes'));
+        this.app.use(this.paths.categories, require('../routes/categories.routes'));
+        this.app.use(this.paths.product, require('../routes/product.routes'));
+        this.app.use(this.paths.search, require('../routes/search.routes'));
+        this.app.use(this.paths.uploads, require('../routes/uploads.routes'));
     }
 
     listen(){
