@@ -29,14 +29,12 @@ router.get('/:id',[
 router.post('/',[
                 validateJWT,
                 body('name','Name is required').not().isEmpty(),
-                body('categorie','Categorie isnt mongo ID ').isMongoId(),
                 validateCategorie,
                 validateCamp], createProduct);
 
 //Private API - JWT
 router.put('/:id',[
                 validateJWT,
-                body('categorie','Categorie isnt mongo ID ').isMongoId(),
                 check('id').custom( productExistById ),
                 validateCategorie,
                 validateCamp], updateProduct);
