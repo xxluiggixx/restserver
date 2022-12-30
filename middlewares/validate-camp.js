@@ -12,6 +12,7 @@ const validateCamp = ( req, res, next ) => {
 }
 
 
+
 module.exports = {
-    validateCamp
+    validateCamp,
 };

@@ -4,7 +4,7 @@ const { v4: uuidv4 } = require('uuid');
 const uploadFile = ( files, extensionAllow = ['jpg', 'pdf'], directory= ''  ) => {
 
   return new Promise((resolve, reject) => {
-
+    
     const { file } = files;
 
     const shortName = file.name.split('.');
